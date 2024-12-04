@@ -1,0 +1,35 @@
+global:
+ resolve_timeout: 5m
+ telegram_api_url: "https://api.telegram.org"
+
+route:
+  receiver: "blackhole"
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  group_by: ['alertname', 'severity']
+ 
+  routes:
+  - receiver: 'telegram1'
+    matchers:
+    - severity = "critical"
+    - notification = "telegram1"
+  - receiver: 'telegram2'
+    matchers:
+    - severity = "warning"
+    - notification = "telegram2"
+   
+receivers:
+  - name: 'telegram1'
+    telegram_configs:
+    - chat_id: -1002183314869
+      parse_mode: "HTML"
+      #api_url: core.telegram.org/bots/api
+      bot_token: '7318900692:AAFFivIptZrSK8zW-3XXdgHkqUOXuccGy5E'
+  - name: 'telegram2'
+    telegram_configs:
+    - chat_id: -1002154694041
+      parse_mode: "HTML"
+      #api_url: core.telegram.org/bots/api
+      bot_token: '7497858591:AAE7Xw1cTC24D0XerdZO_2TvwFX4dzGzDW0'
+  - name: 'blackhole'

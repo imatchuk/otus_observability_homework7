@@ -1,0 +1,12 @@
+groups:
+- name: critical
+  rules:
+    - alert: ginx_status
+      expr: up{job="nginx_status"} == 0
+      for: 3m
+      labels:
+        severity: critical
+        notification: telegram1
+      annotations:
+        summary: "Job {{ $labels.job }} is down"
+        description: "Job {{ $labels.job }} is down for the last 3m."

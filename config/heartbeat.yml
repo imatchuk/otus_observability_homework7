@@ -1,0 +1,11 @@
+heartbeat.monitors:
+- type: tcp
+  id: myhost-tcp-echo
+  name: My Host TCP Echo
+  hosts: ["http://172.28.0.30:777"]  # default TCP Echo Protocol
+  check.send: "Check"
+  check.receive: "Check"
+  schedule: '@every 5s'
+- type: http
+  urls: ["http://172.28.0.20:9000"]
+  schedule: '@every 10s'
